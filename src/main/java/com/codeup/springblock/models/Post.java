@@ -1,21 +1,28 @@
 package com.codeup.springblock.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="posts")
 public class Post {
-    private String title;
-    private String body;
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private long id;
 
-    public Post(String title, String body) {
+    @Column(nullable = false)
+    private String title;
+
+    @Column(columnDefinition = "TEXT")
+    private String body;
+
+    @ManyToOne
+    private User user;
+
+
+    public Post(String title, String body, User user) {
         this.title = title;
         this.body = body;
+        this.user = user;
     }
 
     public Post(){
@@ -37,11 +44,11 @@ public class Post {
         this.body = body;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    public void setId(long id) { this.id = id; }
 
-    public long getId() {
-        return id;
-    }
+    public long getId() { return id; }
+
+    public User getUser(){return user;}
+
+    public void setUser(User user){this.user = user;}
 }

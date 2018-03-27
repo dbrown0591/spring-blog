@@ -1,12 +1,12 @@
 package com.codeup.springblock.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Ad {
+    @ManyToOne
+    private User user;
     @Id @GeneratedValue
     private long id;
 
@@ -16,9 +16,13 @@ public class Ad {
     @Column(nullable = true) //nullable = true is a default value
     private String description;
 
-    public Ad(String title, String description) {
+    @ManyToMany
+    private List<AdCatagory>categories;
+
+    public Ad(String title, String description, User user) {
         this.title = title;
         this.description = description;
+        this.user=user;
     }
 
     public Ad() {
@@ -48,4 +52,5 @@ public class Ad {
     public void setId(long id) {
         this.id = id;
     }
+
 }

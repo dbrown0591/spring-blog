@@ -1,77 +1,84 @@
 package com.codeup.springblock;
 
+import com.codeup.springblock.daos.UsersRepository;
 import com.codeup.springblock.models.Post;
+import com.codeup.springblock.models.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import com.codeup.springblock.services.PostService;
 
 import java.util.Arrays;
 import java.util.List;
 
 @Controller
 public class PostsController {
-    // Auto-wiring
-    // For dependency injection
     // 1. Create an instance variable with your dependency
-    // 2. Inject the dependency through the constructor and assign it to your instance variable
-    private PostService postService;
+    private final PostService postService;
+    private final UsersRepository usersRepository;
 
-    public PostsController(PostService service) {
-        this.postService = service;
+    // 2. Inject the dependency through the constructor and assign it to your instance variable
+    public PostsController(PostService postService, UsersRepository usersRepository) {
+        this.postService = postService; // This the first time we assign something to postService
+        this.usersRepository = usersRepository;
     }
-    @GetMapping("/posts")
-    public String index(Model viewModel) {
+
+    @RequestMapping("/posts")
+    public String index(Model viewAndModel) {
+        /*List<Post> posts = Arrays.asList(
+            new Post("Post A", "Body A"),
+            new Post("Post B", "Body B"),
+            new Post("Post C", "Body C")
+        );*/
         Iterable<Post> posts = postService.findAll();
 
-
-        viewModel.addAttribute("posts", posts);
+        viewAndModel.addAttribute("posts", posts);
 
         return "posts/index";
     }
 
     @RequestMapping("/posts/{id}")
-    public String show(@PathVariable long id, Model viewModel) {
-        Post post = new Post("Test post", "Test body");
+    public String show(@PathVariable long id, Model viewAndModel) {
+        //Post post = new Post("Test post", "Test body");
+        Post post = postService.findOne(id);
 
-        viewModel.addAttribute("post", post);
+        viewAndModel.addAttribute("post", post);
 
         return "posts/show";
     }
 
-    @GetMapping("/posts/{id}")
-    @ResponseBody
-    public String postId(@PathVariable long id, Model viewModel) {
-            //Post post = new Post("Test post", "Test body");
-        Post post = postService.findOne(id);
-        viewModel.addAttribute("post", post);
-        return "view an individual post";
-    }
-
-    @GetMapping("/posts/create")
-    public String showCreateForm(Model viewModel){
+    @RequestMapping("/posts/create")
+    public String showCreateForm(Model viewModel) {
         viewModel.addAttribute("post", new Post());
         return "posts/create";
     }
 
     @PostMapping("/posts/create")
-    @ResponseBody
-    public String createPost(@ModelAttribute  Post post){
-
-      postService.save(post);
-        return "create a new post";
+    public String createPost(@ModelAttribute Post post) {
+        User user = usersRepository.findOne(2L);
+        post.setUser(user);
+        postService.save(post);
+        return "redirect:/posts";
     }
 
-    @GetMapping("/post/{id}/edit")
-    public String showEditForm(@PathVariable long id, Model viewModel){
+    @GetMapping("/posts/{id}/edit")
+    public String showEditForm(@PathVariable long id, Model viewAndModel) {
         Post post = postService.findOne(id);
-        viewModel.addAttribute("post", post);
-        return "post/edit";
+        viewAndModel.addAttribute("post", post);
+        return "posts/edit";
     }
 
-    @PostMapping("posts/edit")
-    public String updatePost(@ModelAttribute Post post){
-        postService.update(post);
-        return "redirect:/post";
+    @PostMapping("/posts/{id}/edit")
+    public String updatePost(@PathVariable long id, @ModelAttribute Post post) {
+        post.setId(id);
+        postService.save(post);
+        return "redirect:/posts";
+    }
+
+    @PostMapping("/posts/{id}/delete")
+    public String delete(@PathVariable long id) {
+        postService.delete(id);
+        return "redirect:/posts";
     }
 
 }
