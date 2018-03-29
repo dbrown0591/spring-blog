@@ -2,9 +2,14 @@ package com.codeup.springblock.models;
 
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
 
 @Configuration
-public class UserWithRoles extends User implements UserDetails{
+public class UserWithRoles extends User implements UserDetails {
     public UserWithRoles(User user) {
         super(user);  // Call the copy constructor defined in User
     }

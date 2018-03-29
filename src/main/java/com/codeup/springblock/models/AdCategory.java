@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name="categories")
-public class AdCatagory {
+public class AdCategory{
     @Id
     @GeneratedValue
     private long id;

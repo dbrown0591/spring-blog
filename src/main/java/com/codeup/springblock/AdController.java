@@ -5,6 +5,7 @@ import com.codeup.springblock.models.Ad;
 import com.codeup.springblock.models.User;
 import com.codeup.springblock.services.AdService;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

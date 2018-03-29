@@ -1,12 +1,16 @@
 package com.codeup.springblock.services;
 
 import com.codeup.springblock.daos.UsersRepository;
+import com.codeup.springblock.models.User;
 import com.codeup.springblock.models.UserWithRoles;
-import org.apache.tomcat.jni.User;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserDetailsLoader  implements UserDetailsService{
+public class UserDetailsLoader  implements UserDetailsService {
     private final UsersRepository users;
 
     public UserDetailsLoader(UsersRepository users) {

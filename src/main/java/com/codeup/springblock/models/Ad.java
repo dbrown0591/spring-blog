@@ -4,9 +4,8 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name ="ads")
 public class Ad {
-    @ManyToOne
-    private User user;
     @Id @GeneratedValue
     private long id;
 
@@ -16,13 +15,29 @@ public class Ad {
     @Column(nullable = true) //nullable = true is a default value
     private String description;
 
-    @ManyToMany
-    private List<AdCatagory>categories;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private User owner;
 
-    public Ad(String title, String description, User user) {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ad")
+    private List<AdImage> images;
+
+    @ManyToMany
+    @JoinTable(
+            joinColumns={@JoinColumn(name="ad_id")},
+            inverseJoinColumns={@JoinColumn(name="category_id")}
+    )
+    private List<AdCategory> categories;
+
+    public Ad(String title, String description) {
         this.title = title;
         this.description = description;
-        this.user=user;
+    }
+
+
+    public Ad(String title, String description, User owner) {
+        this.title = title;
+        this.description = description;
+        this.owner=owner;
     }
 
     public Ad() {
@@ -51,6 +66,14 @@ public class Ad {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public User getOwner() {
+        return owner;
     }
 
 }
