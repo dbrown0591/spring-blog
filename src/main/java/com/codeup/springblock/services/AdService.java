@@ -4,6 +4,7 @@ import com.codeup.springblock.daos.AdRepository;
 import com.codeup.springblock.models.Ad;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class AdService {
 

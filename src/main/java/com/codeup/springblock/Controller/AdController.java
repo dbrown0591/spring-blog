@@ -1,4 +1,4 @@
-package com.codeup.springblock;
+package com.codeup.springblock.Controller;
 
 import com.codeup.springblock.daos.UsersRepository;
 import com.codeup.springblock.models.Ad;
