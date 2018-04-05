@@ -19,10 +19,10 @@ public class UsersController {
         this.encoder = encoder;
     }
 
-    @GetMapping("/posts/sign-up")
+    @GetMapping("/users/sign-up")
     public String showSignUpForm(Model viewAndModel) {
         viewAndModel.addAttribute("user", new User());
-        return "sign-up";
+        return "users/sign-up";
     }
 
     @PostMapping("/sign-up")
