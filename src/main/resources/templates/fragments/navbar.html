@@ -8,12 +8,12 @@
 
 <nav id="my-nav" class="navbar navbar-default" th:fragment="mainNavbar">
     <ul class="nav navbar-nav">
-        <li><a href="/">Index</a></li>
+        <li><a href="/">Home</a></li>
         <li sec:authorize="!isAuthenticated()">
             <a href="/login">Login</a>
         </li>
         <li sec:authorize="isAnonymous()">
-            <a href="/register">Register</a>
+            <a href="/users/sign-up">Sign Up</a>
         </li>
         <li>
             <form th:action="@{/logout}" th:method="post">
