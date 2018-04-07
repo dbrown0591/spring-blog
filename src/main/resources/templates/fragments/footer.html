@@ -1,10 +1,17 @@
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head></head>
 <body>
+
+<footer th:fragment="footer" class="footer">
+    <footer class="footer">
+        <div class="container">
+            <!-- Using #dates : utility methods for java.util.Date objects: -->
+            <span class="text-muted">Codeup blog &copy; <span th:text="${#dates.year(#dates.createNow())}"></span></span>
+        </div>
+    </footer>
+</footer>
 
 </body>
 </html>

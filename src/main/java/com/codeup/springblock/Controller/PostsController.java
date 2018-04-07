@@ -26,9 +26,9 @@ public class PostsController {
     @RequestMapping("/posts")
     public String index(Model viewAndModel) {
 //        List<Post> posts = Arrays.asList(
-//            new Post("Post A", "Body A"),
-//            new Post("Post B", "Body B"),
-//            new Post("Post C", "Body C")
+//            new Post("Post A"; "Body A"),
+//            new Post("Post B";"Body B"),
+//            new Post("Post C";"Body C")
 //        );
         Iterable<Post> posts = postService.findAll();
 
