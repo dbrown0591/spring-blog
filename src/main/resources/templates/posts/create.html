@@ -5,15 +5,15 @@
 </head>
 <body>
 <div th:replace="fragments/navbar :: mainNavbar"></div>
-//Added nav bar but it's not showing everything and it shows "dbrown" at the top
-//need to find out how to get rid of that.
+<!--Added nav bar but it's not showing everything and it shows "dbrown" at the top-->
+<!--need to find out how to get rid of that.-->
 <form action="/posts/create" method="post" th:object="${post}">
     Title:
     <input th:field="*{title}" />
     <br/>
     <br/>
     Description:
-    <input th:field="*{body}" style="width: 300px;height:300px;" />
+    <input th:field="*{body}" style="width: 130px;height:130px;" />
     <br />
     <input type="submit"/>
 </form>

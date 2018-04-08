@@ -6,7 +6,7 @@
 </head>
 <body>
 <div th:replace="fragments/navbar :: mainNavbar"></div>
-//Added this div to have a nav bar but it needs to be fixed.
+<!--Added this div to have a nav bar but it needs to be fixed.-->
 <div th:each="post : ${posts}">
     <h1 th:text="${post.title}"></h1>
     <p th:text="${post.body}"></p>
