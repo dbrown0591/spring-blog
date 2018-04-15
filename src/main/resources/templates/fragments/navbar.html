@@ -15,7 +15,10 @@
         <li sec:authorize="isAnonymous()">
             <a href="/users/sign-up">Sign Up</a>
         </li>
-
+        <li sec:authorize="isAuthenticated()">
+            <a href="/posts/create">Make a Post</a>
+        </li>
+        <!--Change to isAuthenticated for links that we only want to show to logged in users-->
         <li>
             <form th:action="@{/logout}" th:method="post">
                 <button class="btn-link btn" style="margin-top: 8px">Logout</button>
